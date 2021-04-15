@@ -31,6 +31,8 @@ import Button from "@material-ui/core/Button";
 import axios from "axios";
 
 const drawerWidth = 240;
+// const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 const styles = (theme) => ({
   root: {
     display: "flex",
@@ -106,20 +108,20 @@ class Dash extends Component {
   logOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("post");
-    window.location.replace("http://localhost:3000/");
+    window.location.replace(process.env.REACT_APP_SITE_URL);
   };
 
-  getData = async () => {
+  getData = async (event) => {
     this.setState({
       isLoading: true,
     });
     const tok = localStorage.getItem("token");
     const post = localStorage.getItem("post");
     if (tok === null) {
-      window.location.replace("http://localhost:3000/");
+      window.location.replace(process.env.REACT_APP_SITE_URL);
     } else {
       const _user = await axios.get(
-        "http://localhost:4000/api/" + post + "/dashboard",
+        process.env.REACT_APP_SERVER_URL + "/api/" + post + "/dashboard",
         {
           headers: {
             Authorization: "Bearer " + tok,
@@ -223,7 +225,8 @@ class Dash extends Component {
     };
     const post = localStorage.getItem("post");
     const resp = await axios.post(
-      "http://localhost:4000/api/dashboard/Student/courseRegister",
+      process.env.REACT_APP_SERVER_URL +
+        "/api/dashboard/Student/courseRegister",
       courseData,
       {
         headers: {
@@ -321,7 +324,7 @@ class Dash extends Component {
               <img
                 class="rounded-circle img-fluid"
                 style={{ height: "50px", width: "50px", size: "cover" }}
-                src={`http://localhost:4000/${this.state.user.image}`}
+                src={`${process.env.REACT_APP_SERVER_URL}/${this.state.user.image}`}
               ></img>
             </div>
             <div class="col-8 pt-3">
@@ -378,7 +381,7 @@ class Dash extends Component {
                           height: "300px",
                           width: "300px",
                         }}
-                        src={`http://localhost:4000/${this.state.user.image}`}
+                        src={`${process.env.REACT_APP_SERVER_URL}/${this.state.user.image}`}
                       ></img>
                     </div>
                     <div class="p-2">

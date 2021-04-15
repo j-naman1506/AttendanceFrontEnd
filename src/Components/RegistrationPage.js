@@ -64,7 +64,7 @@ function FormTeacher(props) {
       };
     });
     async function postFormData() {
-      var url = "http://localhost:4000/api/register/";
+      var url = window.env.API_URL + "/api/register/";
       let imageobj = new FormData();
 
       imageobj.append("imageName", "multer-image-" + Date.now());
@@ -92,7 +92,7 @@ function FormTeacher(props) {
           };
         });
       } else if (res.data === "Registered") {
-        var url = "http://localhost:4000/api/login/";
+        var url = window.env.API_URL + "/api/login/";
         url = url + formData.post;
         axios.post(url, formData).then((userData) => {
           if (userData.data.Error) {
@@ -101,7 +101,7 @@ function FormTeacher(props) {
             localStorage.setItem("token", userData.data.token);
             localStorage.setItem("post", formData.post);
           }
-          var rurl = "http://localhost:3000/dashboard/" + formData.post;
+          var rurl = window.env.SITE_URL + "/dashboard/" + formData.post;
           window.location.replace(rurl);
         });
       }

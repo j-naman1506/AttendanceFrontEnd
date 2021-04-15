@@ -123,7 +123,7 @@ class Dash extends Component {
   logOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("post");
-    window.location.replace("http://localhost:3000/");
+    window.location.replace(process.env.REACT_APP_SITE_URL);
   };
 
   getData = async () => {
@@ -136,10 +136,10 @@ class Dash extends Component {
     const post = localStorage.getItem("post");
 
     if (tok === null) {
-      window.location.replace("http://localhost:3000/");
+      window.location.replace(process.env.REACT_APP_SITE_URL);
     } else {
       const _user = await axios.get(
-        "http://localhost:4000/api/" + post + "/dashboard",
+        process.env.REACT_APP_SERVER_URL + "/api/" + post + "/dashboard",
         {
           headers: {
             Authorization: "Bearer " + tok,
@@ -161,13 +161,7 @@ class Dash extends Component {
   handleDateChange = (date) => {
     this.setState({ date });
   };
-  // componentDidMount() {
-  //   this.setState((prevvalue) => {
-  //     return {
-  //       isLoading: false,
-  //     };
-  //   });
-  // }
+
   constructor() {
     super();
     this.state = {
@@ -279,7 +273,8 @@ class Dash extends Component {
     };
 
     const res = await axios.post(
-      "http://localhost:4000/api/dashboard/Teacher/MarkAttendance",
+      process.env.REACT_APP_SERVER_URL +
+        "/api/dashboard/Teacher/MarkAttendance",
       attenData,
       {
         headers: {
@@ -385,7 +380,7 @@ class Dash extends Component {
     };
 
     const resp = await axios.post(
-      "http://localhost:4000/api/dashboard/Teacher/fetchStdata",
+      process.env.REACT_APP_SERVER_URL + "/api/dashboard/Teacher/fetchStdata",
       courseassignData,
       {
         headers: {
@@ -434,7 +429,8 @@ class Dash extends Component {
       subject: this.state.assdata.subjectSelected,
     };
     const resp = await axios.post(
-      "http://localhost:4000/api/dashboard/Teacher/fetchAttendance",
+      process.env.REACT_APP_SERVER_URL +
+        "/api/dashboard/Teacher/fetchAttendance",
       courseData,
       {
         headers: {
@@ -483,7 +479,8 @@ class Dash extends Component {
     };
 
     const resp = await axios.post(
-      "http://localhost:4000/api/dashboard/Teacher/courseRegister",
+      process.env.REACT_APP_SERVER_URL +
+        "/api/dashboard/Teacher/courseRegister",
       courseData,
       {
         headers: {
@@ -585,7 +582,7 @@ class Dash extends Component {
               <img
                 class="rounded-circle img-fluid"
                 style={{ height: "50px", width: "50px", size: "cover" }}
-                src={`http://localhost:4000/${this.state.user.image}`}
+                src={`${process.env.REACT_APP_SERVER_URL}/${this.state.user.image}`}
               ></img>
             </div>
             <div class="col-8 pt-3">
@@ -643,7 +640,7 @@ class Dash extends Component {
                       <img
                         class="rounded-circle img-fluid pb-3"
                         style={{ height: "300px", width: "300px" }}
-                        src={`http://localhost:4000/${this.state.user.image}`}
+                        src={`${process.env.REACT_APP_SERVER_URL}/${this.state.user.image}`}
                       ></img>
                     </div>
                     <div class="p-2">

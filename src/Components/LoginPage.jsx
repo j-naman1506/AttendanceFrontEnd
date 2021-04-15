@@ -1,12 +1,15 @@
 import React, { Component, useEffect, useState } from "react";
 import axios from "axios";
 import Spinner from "./Loader";
+
 class Login extends Component {
   Check = () => {
     const tok = localStorage.getItem("token");
     const post = localStorage.getItem("post");
     if (tok) {
-      window.location.replace("http://localhost:3000/dashboard/" + post);
+      window.location.replace(
+        window.env.REACT_APP_SITE_URL + "/dashboard/" + post
+      );
     }
   };
 
@@ -51,7 +54,7 @@ class Login extends Component {
   handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    var url = "http://localhost:4000/api/login/";
+    var url = window.env.REACT_APP_SERVER_URL + "/api/login/";
 
     const d = this.state;
 
@@ -84,7 +87,8 @@ class Login extends Component {
       localStorage.setItem("token", resp.data.token);
       localStorage.setItem("post", this.state.post);
 
-      var rurl = "http://localhost:3000/dashboard/" + this.state.post;
+      var rurl =
+        window.env.REACT_APP_SITE_URL + "/dashboard/" + this.state.post;
       window.location.replace(rurl);
     }
   };
